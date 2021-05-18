@@ -27,14 +27,14 @@ class StandardPositionFormatter extends BaseFormatter
             list($x, $y) = $boundary->getFirstPoint()->toArray();
 
             $attributesSnapshot = $node->getAttributesSnapshot();
-            $diffWidth = $node->getWidth() - $attributesSnapshot['width'];
+            $diffWidth = $node->getWidth() - ($attributesSnapshot ? $attributesSnapshot['width'] : 0);
             $width = $node->getWidth();
             $x += $width;
             $yEnd = $y - $node->getHeight();
             $boundary->setNext($x, $y)
-                     ->setNext($x, $yEnd)
-                     ->setNext($x - $width, $yEnd)
-                     ->close();
+                ->setNext($x, $yEnd)
+                ->setNext($x - $width, $yEnd)
+                ->close();
 
             if($node->hadAutoMargins())
             {
